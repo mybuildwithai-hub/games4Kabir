@@ -31,12 +31,27 @@ elif st.session_state.page == "animal_game":
     
     col1, col2 = st.columns(2)
     with col1:
-        # Using the Link Button approach for better iPad playback
-        st.link_button("🦁 LION", "https://www.youtube.com/embed/zgxUh6RYo7Y?autoplay=1&mute=1", use_container_width=True)
-        st.link_button("🐶 DOG", "https://www.youtube.com/embed/Hy-cFpg2e30?autoplay=1&mute=1", use_container_width=True)
+        # LION BUTTON
+        # Link: A roaring lion (Shorts converted to embed)
+        if st.button("🦁 LION", use_container_width=True):
+            st.session_state.playing_video = "https://www.youtube.com/embed/zgxUh6RYo7Y?autoplay=1&mute=1"
+            st.rerun()
+
+        # DUCK BUTTON
+        if st.button("🦆 DUCK", use_container_width=True):
+            st.session_state.playing_video = "https://www.youtube.com/embed/raF08RDQrhI?autoplay=1&mute=1"
+            st.rerun()
+            
     with col2:
-        st.link_button("🦆 DUCK", "https://www.youtube.com/embed/raF08RDQrhI?autoplay=1&mute=1", use_container_width=True)
-        st.link_button("🐘 ELEPHANT", "https://www.youtube.com/embed/J8O9_ugpDjE?autoplay=1&mute=1", use_container_width=True)
+        # DOG BUTTON
+        if st.button("🐶 DOG", use_container_width=True):
+            st.session_state.playing_video = "https://www.youtube.com/embed/Hy-cFpg2e30?autoplay=1&mute=1"
+            st.rerun()
+
+        # ELEPHANT BUTTON
+        if st.button("🐘 ELEPHANT", use_container_width=True):
+            st.session_state.playing_video = "https://www.youtube.com/embed/J8O9_ugpDjE?autoplay=1&mute=1"
+            st.rerun()
     
     st.write("---")
     if st.button("🏠 BACK TO MENU", use_container_width=True):
