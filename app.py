@@ -18,8 +18,8 @@ if st.session_state.page == "main_menu":
         st.session_state.page = "animal_game"
         st.rerun()
         
-    if st.button("🎨 COLOR LEARNING", use_container_width=True):
-        st.session_state.page = "color_game"
+    if st.button("🎨 BALLOON GAME", use_container_width=True):
+        st.session_state.page = "balloon_game"
         st.rerun()
 
 # --- 4. SCREEN: ANIMAL SELECTION ---
