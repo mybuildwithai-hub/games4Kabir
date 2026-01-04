@@ -106,7 +106,7 @@ elif st.session_state.page == "toy_game":
             ("✈️ PLANE", "toys/plane.jpg", "sounds/plane.mp3", t_col1),
             ("🚗 CAR", "toys/car.jpg", "sounds/car.mp3", t_col1),
             ("🚂 TRAIN", "toys/train.jpg", "sounds/train.mp3", t_col2),
-            ("⚽ BALL", "toys/ball.jfif", "sounds/bounce.mp3", t_col2)
+            ("⚽ BALL", "toys/ball.jpg", "sounds/bounce.mp3", t_col2)
         ]
         
         for label, path, sound, col in toys:
