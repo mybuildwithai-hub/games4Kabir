@@ -9,24 +9,27 @@ st.set_page_config(page_title="Kabir Play Box", page_icon="🎮", layout="wide")
 
 st.markdown("""
     <style>
-    /* 1. Hide the audio bars to keep the screen clean */
+    /* 1. Hide the audio bars */
     audio { display: none; }
 
-    /* 2. Standardize button size for Kabir's fingers */
+    /* 2. Make buttons match the page color exactly */
     .stButton>button { 
         border-radius: 20px; 
         height: 4em; 
         font-weight: bold; 
         font-size: 22px; 
-        background-color: #FFD700;
-        border: 2px solid #dfe1e5;
+        background-color: transparent; /* Matches the page */
+        border: none;                  /* Removes the outline */
+        color: inherit;                /* Keeps the text color natural */
     }
 
-    /* 3. Visual feedback ONLY when the button is actually pressed */
-    .stButton>button:active { 
-        background-color: #FFD700 !important; 
-        color: black !important;
-        border: 2px solid #FFA500;
+    /* 3. Remove any flash or highlight when tapped */
+    .stButton>button:active, .stButton>button:focus, .stButton>button:hover { 
+        background-color: transparent !important;
+        color: inherit !important;
+        border: none !important;
+        outline: none !important;
+        box-shadow: none !important;
     }
     </style>
     """, unsafe_allow_html=True)
