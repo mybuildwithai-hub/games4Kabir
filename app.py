@@ -76,8 +76,7 @@ elif st.session_state.page == "animal_game":
                 </style>
                 """, unsafe_allow_html=True)
 
-            st.title("LOOK! 📺")
-            
+           
             # Read and encode the GIF
             with open(gif_file, "rb") as f:
                 data = f.read()
