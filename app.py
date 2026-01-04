@@ -32,7 +32,7 @@ else:
     with col1:
         if st.button('🦁 Lion Video', use_container_width=True):
             # Using a kid-friendly National Geographic Lion clip
-            st.session_state.playing_video = "https://www.youtube.com/shorts/x6FeFwnOT-Q"
+            st.session_state.playing_video = "https://www.youtube.com/embed/x6FeFwnOT-Q"
             st.rerun()
 
     with col2:
