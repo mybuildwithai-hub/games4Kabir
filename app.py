@@ -45,8 +45,7 @@ else:
     
     # Double check files exist to prevent the app from crashing
     if os.path.exists(gif_path) and os.path.exists(sound_path):
-        st.title("LOOK! 📺")
-        
+                
         # Prepare the GIF
         with open(gif_path, "rb") as f:
             gif_bytes = f.read()
