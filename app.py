@@ -1,18 +1,19 @@
 import streamlit as st
 
 # --- 1. SETTINGS ---
-st.set_page_config(page_title="Toddler Play Box", page_icon="🎮", layout="centered")
+st.set_page_config(page_title="Toddler Play Box", page_icon="🎮", layout="wide")
 
-# --- 2. THE APP "BRAIN" (Navigation Logic) ---
-# We use 'page' to remember which game we are currently playing
+# --- 2. THE APP BRAIN ---
 if 'page' not in st.session_state:
     st.session_state.page = "main_menu"
+if 'current_video' not in st.session_state:
+    st.session_state.current_video = None
 
-# --- 3. PAGE: MASTER MENU ---
+# --- 3. SCREEN: MASTER MENU ---
 if st.session_state.page == "main_menu":
     st.title("Choose a Game! 👶")
     
-    # Large buttons for the master menu
+    # Large navigation buttons
     if st.button("🐾 TAP AN ANIMAL", use_container_width=True):
         st.session_state.page = "animal_game"
         st.rerun()
@@ -20,42 +21,48 @@ if st.session_state.page == "main_menu":
     if st.button("🎨 COLOR LEARNING", use_container_width=True):
         st.session_state.page = "color_game"
         st.rerun()
-        
-    if st.button("🎈 POP THE BALLOON", use_container_width=True):
-        st.session_state.page = "balloon_game"
-        st.rerun()
 
-# --- 4. PAGE: ANIMAL GAME ---
-elif st.session_state.page == "animal_game":
-    st.title("Animal Sounds 🦁")
+# --- 4. SCREEN: ANIMAL SELECTION ---
+elif st.session_state.page == "animal_game" and st.session_state.current_video is None:
+    st.title("Tap an Animal! 🦁")
     
     col1, col2 = st.columns(2)
     with col1:
-        # Using the Link Button approach for better iPad playback
-        st.link_button("🦁 LION", "https://www.youtube.com/embed/zgxUh6RYo7Y?autoplay=1&mute=1", use_container_width=True)
-        st.link_button("🐶 DOG", "https://www.youtube.com/watch?v=j_S_9_193mY&autoplay=1", use_container_width=True)
+        if st.button("🦁 LION", use_container_width=True):
+            st.session_state.current_video = "https://www.youtube.com/embed/zgxUh6RYo7Y?autoplay=1&mute=1"
+            st.rerun()
+        if st.button("🐶 DOG", use_container_width=True):
+            st.session_state.current_video = "https://www.youtube.com/embed/Hy-cFpg2e30?autoplay=1&mute=1"
+            st.rerun()
     with col2:
-        st.link_button("🦆 DUCK", "https://www.youtube.com/watch?v=u6_f6OshL90&autoplay=1", use_container_width=True)
-        st.link_button("🐘 ELEPHANT", "https://www.youtube.com/watch?v=Gn8S_C_uXmY&autoplay=1", use_container_width=True)
+        if st.button("🦆 DUCK", use_container_width=True):
+            st.session_state.current_video = "https://www.youtube.com/embed/raF08RDQrhI?autoplay=1&mute=1"
+            st.rerun()
+        if st.button("🐘 ELEPHANT", use_container_width=True):
+            st.session_state.current_video = "https://www.youtube.com/embed/J8O9_ugpDjE?autoplay=1&mute=1"
+            st.rerun()
     
     st.write("---")
-    if st.button("🏠 BACK TO MENU", use_container_width=True):
+    if st.button("🏠 BACK TO MASTER MENU", use_container_width=True):
         st.session_state.page = "main_menu"
         st.rerun()
 
-# --- 5. PAGE: COLOR GAME (Placeholder) ---
+# --- 5. SCREEN: EMBEDDED VIDEO PLAYER ---
+elif st.session_state.current_video:
+    st.title("Watch!")
+    
+    # This displays the video inside the app
+    st.video(st.session_state.current_video)
+    
+    st.write("---")
+    if st.button("⬅️ CHOOSE ANOTHER ANIMAL", use_container_width=True):
+        st.session_state.current_video = None
+        st.rerun()
+
+# --- 6. SCREEN: COLOR GAME ---
 elif st.session_state.page == "color_game":
-    st.title("What Color is This? 🎨")
-    st.info("We will build the color logic here next!")
-    if st.button("🏠 BACK TO MENU", use_container_width=True):
-        st.session_state.page = "main_menu"
-        st.rerun()
-
-# --- 6. PAGE: BALLOON GAME (Placeholder) ---
-elif st.session_state.page == "balloon_game":
-    st.title("Pop the Balloon! 🎈")
-    if st.button("🎈 CLICK TO POP!", use_container_width=True):
-        st.balloons()
-    if st.button("🏠 BACK TO MENU", use_container_width=True):
+    st.title("Color Game 🎨")
+    st.write("Coming Soon!")
+    if st.button("🏠 BACK", use_container_width=True):
         st.session_state.page = "main_menu"
         st.rerun()
