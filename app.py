@@ -41,7 +41,7 @@ elif st.session_state.page == "animal_game":
         with col1:
             if st.button("🦁 LION", use_container_width=True):
                 # Format: ["gif_filename", "audio_url"]
-                st.session_state.current_video = ["lion.gif", "https://www.myinstants.com/media/sounds/lion_roar.mp3"]
+                st.session_state.current_video = ["lion.gif", "lion.mp3"]
                 st.rerun()
             if st.button("🐶 DOG", use_container_width=True):
                 st.session_state.current_video = ["dog.gif", "https://www.soundjay.com/nature/dog-bark-1.mp3"]
