@@ -1,24 +1,27 @@
 import streamlit as st
 
-# 1. Setup the Page Title and Icon
-st.set_page_config(page_title="Toddler Fun", page_icon="👶")
+st.set_page_config(page_title="Toddler Sounds", page_icon="🔊")
 
-# 2. The Header
-st.title("Tap an Animal! 🐾")
-st.write("A simple game for my little one.")
+st.title("Touch the Animals! 🔊")
 
-# 3. Create a layout with 2 columns
-col1, col2 = st.columns(2)
+# Create three columns for more choices
+col1, col2, col3 = st.columns(3)
 
-# 4. Logic for the first animal (Cow)
 with col1:
-    if st.button('🐮 MOO', use_container_width=True):
-        st.balloons() # This makes balloons fly up the screen!
-        st.success("THE COW SAYS MOOOO!")
-        # Tip: Later, we can add st.audio() here for real sounds
+    if st.button('🦁 Lion', use_container_width=True):
+        st.write("ROAR!")
+        # A link to a short lion roar sound
+        st.audio("https://www.w3schools.com/html/horse.ogg") # Placeholder: Replace with Lion URL
+        st.balloons()
 
-# 5. Logic for the second animal (Duck)
 with col2:
-    if st.button('🦆 QUACK', use_container_width=True):
-        st.snow() # This makes snowflakes fall!
-        st.info("THE DUCK SAYS QUACK!")
+    if st.button('🐶 Dog', use_container_width=True):
+        st.write("WOOF!")
+        st.audio("https://www.soundjay.com/nature/dog-bark-1.mp3")
+        st.snow()
+
+with col3:
+    if st.button('🐱 Cat', use_container_width=True):
+        st.write("MEOW!")
+        st.audio("https://www.soundjay.com/condition/sounds/cat-meow-1.mp3")
+        st.toast("Meow!") # This pops up a tiny notification at the bottom
