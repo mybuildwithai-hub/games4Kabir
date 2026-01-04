@@ -41,17 +41,17 @@ elif st.session_state.page == "animal_game":
         with col1:
             if st.button("🦁 LION", use_container_width=True):
                 # Format: ["gif_filename", "audio_url"]
-                st.session_state.current_video = ["lion.gif", "lion.mp3"]
+                st.session_state.current_video = ["animations/lion.gif", "sounds/lion.mp3"]
                 st.rerun()
             if st.button("🐶 DOG", use_container_width=True):
-                st.session_state.current_video = ["dog.gif", "dog.mp3"]
+                st.session_state.current_video = ["animations/dog.gif", "sounds/dog.mp3"]
                 st.rerun()
         with col2:
             if st.button("🦆 DUCK", use_container_width=True):
-                st.session_state.current_video = ["duck.gif", "duck.mp3"]
+                st.session_state.current_video = ["animations/duck.gif", "sounds/duck.mp3"]
                 st.rerun()
             if st.button("🐘 ELEPHANT", use_container_width=True):
-                st.session_state.current_video = ["elephant.gif", "elephant.mp3"]
+                st.session_state.current_video = ["animations/elephant.gif", "sounds/elephant.mp3"]
                 st.rerun()
         
         st.write("---")
