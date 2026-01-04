@@ -12,24 +12,30 @@ st.markdown("""
     /* 1. Hide the audio bars */
     audio { display: none; }
 
-    /* 2. Make buttons match the page color exactly */
+    /* 2. Transparent buttons with a subtle outline */
     .stButton>button { 
         border-radius: 20px; 
         height: 4em; 
         font-weight: bold; 
         font-size: 22px; 
-        background-color: transparent; /* Matches the page */
-        border: none;                  /* Removes the outline */
-        color: inherit;                /* Keeps the text color natural */
+        background-color: transparent; 
+        border: 2px solid rgba(128, 128, 128, 0.3); /* Subtle grey border */
+        color: inherit;
     }
 
-    /* 3. Remove any flash or highlight when tapped */
-    .stButton>button:active, .stButton>button:focus, .stButton>button:hover { 
+    /* 3. When tapped: Just a slight border color change, no background change */
+    .stButton>button:active, .stButton>button:focus { 
         background-color: transparent !important;
         color: inherit !important;
-        border: none !important;
+        border: 2px solid #808080 !important; /* Darker border when pressed */
         outline: none !important;
         box-shadow: none !important;
+    }
+
+    /* 4. Remove hover effect for iPad */
+    .stButton>button:hover {
+        border: 2px solid rgba(128, 128, 128, 0.3);
+        background-color: transparent;
     }
     </style>
     """, unsafe_allow_html=True)
