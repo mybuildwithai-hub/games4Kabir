@@ -44,14 +44,14 @@ elif st.session_state.page == "animal_game":
                 st.session_state.current_video = ["lion.gif", "lion.mp3"]
                 st.rerun()
             if st.button("🐶 DOG", use_container_width=True):
-                st.session_state.current_video = ["dog.gif", "https://www.soundjay.com/nature/dog-bark-1.mp3"]
+                st.session_state.current_video = ["dog.gif", "dog.mp3"]
                 st.rerun()
         with col2:
             if st.button("🦆 DUCK", use_container_width=True):
-                st.session_state.current_video = ["duck.gif", "https://www.soundjay.com/nature/sounds/duck-quack-1.mp3"]
+                st.session_state.current_video = ["duck.gif", "duck.mp3"]
                 st.rerun()
             if st.button("🐘 ELEPHANT", use_container_width=True):
-                st.session_state.current_video = ["elephant.gif", "https://www.soundjay.com/nature/sounds/elephant-trumpets-1.mp3"]
+                st.session_state.current_video = ["elephant.gif", "elephant.mp3"]
                 st.rerun()
         
         st.write("---")
@@ -71,7 +71,6 @@ elif st.session_state.page == "animal_game":
             # Hide the audio player bar
             st.markdown("<style>audio {display: none;}</style>", unsafe_allow_html=True)
 
-            st.title("LOOK! 📺")
             
             # 1. Prepare the GIF
             with open(gif_file, "rb") as f:
