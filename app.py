@@ -1,55 +1,42 @@
 import streamlit as st
 import time
 
-st.set_page_config(page_title="Toddler Fun", page_icon="🐾")
+st.set_page_config(page_title="Toddler TV", page_icon="📺")
 
-# 1. Initialize "Memory": If this is the first time opening the app, 
-# tell Python we aren't showing a big animal yet.
-if 'showing_animal' not in st.session_state:
-    st.session_state.showing_animal = None
+# 1. Memory Check
+if 'playing_video' not in st.session_state:
+    st.session_state.playing_video = None
 
-# 2. SCREEN A: Show the Big Animal
-if st.session_state.showing_animal:
-    animal = st.session_state.showing_animal
+# 2. SCREEN A: Show the Video
+if st.session_state.playing_video:
+    video_url = st.session_state.playing_video
     
-    st.title(f"LOOK! A {animal['name'].upper()}!")
+    st.title("Watch!")
     
-    # Show the big image
-    st.image(animal['image_url'], use_container_width=True)
+    # This displays the video. 
+    # Note: 'autoplay' on iPads is often restricted by Apple for web browsers, 
+    # so the toddler might need to tap the play button once.
+    st.video(video_url)
     
-    # Play the sound
-    st.audio(animal['sound_url'], autoplay=True)
-    
-    # Wait for 5 seconds
-    time.sleep(5)
-    
-    # Clear the memory and refresh to go back to the main menu
-    st.session_state.showing_animal = None
-    st.rerun()
+    # "Back" button for the parent or toddler to return early
+    if st.button("Go Back"):
+        st.session_state.playing_video = None
+        st.rerun()
 
-# 3. SCREEN B: The Main Menu (The grid of animals)
+# 3. SCREEN B: The Main Menu
 else:
-    st.title("Tap an animal! 🐾")
+    st.title("Tap to watch! 🐾")
     
     col1, col2 = st.columns(2)
 
     with col1:
-        # We store the animal data in a "Dictionary" (a Python list of labels)
-        lion_data = {
-            "name": "Lion",
-            "image_url": "https://img.freepik.com/free-vector/cute-lion-cartoon-vector-icon-illustration-animal-nature-icon-concept-isolated-flat-vector_138676-1335.jpg",
-            "sound_url": "https://www.w3schools.com/html/horse.ogg" # Swap with real Lion MP3 later!
-        }
-        if st.button('🦁 Tap the Lion', use_container_width=True):
-            st.session_state.showing_animal = lion_data
+        if st.button('🦁 Lion Video', use_container_width=True):
+            # Using a kid-friendly National Geographic Lion clip
+            st.session_state.playing_video = "https://www.youtube.com/watch?v=H7mY9N_36K8"
             st.rerun()
 
     with col2:
-        dog_data = {
-            "name": "Dog",
-            "image_url": "https://img.freepik.com/free-vector/cute-dog-sitting-cartoon-vector-icon-illustration-animal-nature-icon-concept-isolated-flat-vector_138676-1336.jpg",
-            "sound_url": "https://www.soundjay.com/nature/dog-bark-1.mp3"
-        }
-        if st.button('🐶 Tap the Dog', use_container_width=True):
-            st.session_state.showing_animal = dog_data
+        if st.button('🦆 Duck Video', use_container_width=True):
+            # Using a simple duckling video
+            st.session_state.playing_video = "https://www.youtube.com/watch?v=u6_f6OshL90"
             st.rerun()
