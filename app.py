@@ -18,7 +18,7 @@ st.markdown("""
         height: 4em; 
         font-weight: bold; 
         font-size: 22px; 
-        background-color: #f0f2f6;
+        background-color: #FFD700;
         border: 2px solid #dfe1e5;
     }
 
