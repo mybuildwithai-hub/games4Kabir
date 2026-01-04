@@ -62,4 +62,3 @@ else:
 
     # --- 5. CATEGORY SECTION (For Future Growth) ---
     st.write("---")
-    st.caption("Tip: Add this page to your iPad Home Screen for a full-screen experience.")
