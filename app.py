@@ -67,21 +67,29 @@ elif st.session_state.page == "animal_game":
         import base64
 
         if os.path.exists(gif_file):
+            # --- CSS TO HIDE THE AUDIO PLAYER ---
+            st.markdown("""
+                <style>
+                audio {
+                    display: none;
+                }
+                </style>
+                """, unsafe_allow_html=True)
+
             st.title("LOOK! 📺")
             
-            # --- NEW GIF LOGIC ---
-            # We read the GIF file and convert it to a format the browser understands
+            # Read and encode the GIF
             with open(gif_file, "rb") as f:
                 data = f.read()
                 base64_gif = base64.b64encode(data).decode()
             
-            # This HTML "embeds" the GIF so it definitely stays moving
+            # Display the GIF
             st.markdown(
                 f'<img src="data:image/gif;base64,{base64_gif}" width="100%" style="border-radius: 15px;">',
                 unsafe_allow_html=True
             )
             
-            # Play Sound
+            # Play Sound (it will be invisible now!)
             st.audio(sound_url, autoplay=True)
             
             # Wait 5 seconds, then go back
