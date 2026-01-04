@@ -53,6 +53,21 @@ elif st.session_state.page == "animal_game":
             if st.button("🐘 ELEPHANT", use_container_width=True):
                 st.session_state.current_video = ["animations/elephant.gif", "sounds/elephant.mp3"]
                 st.rerun()
+        with col3:
+            if st.button("🐱 CAT", use_container_width=True):
+                st.session_state.current_video = ["animations/cat.gif", "sounds/cat.mp3"]
+                st.rerun()
+            if st.button("🐮 COW", use_container_width=True):
+                st.session_state.current_video = ["animations/cow.gif", "sounds/cow.mp3"]
+                st.rerun()
+        with col4:
+            if st.button("🐒 MONKEY", use_container_width=True):
+                st.session_state.current_video = ["animations/monkey.gif", "sounds/monkey.mp3"]
+                st.rerun()
+            if st.button("🐑 SHEEP", use_container_width=True):
+                st.session_state.current_video = ["animations/sheep.gif", "sounds/sheep.mp3"]
+                st.rerun()
+
         
         st.write("---")
         if st.button("🏠 BACK TO MASTER MENU", use_container_width=True):
