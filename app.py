@@ -11,7 +11,7 @@ with col1:
     if st.button('🦁 Lion', use_container_width=True):
         st.write("ROAR!")
         # A link to a short lion roar sound
-        st.audio("https://www.w3schools.com/html/horse.ogg") # Placeholder: Replace with Lion URL
+        st.audio("https://www.w3schools.com/html/lion.ogg") # Placeholder: Replace with Lion URL
         st.balloons()
 
 with col2:
