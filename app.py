@@ -59,20 +59,40 @@ elif st.session_state.page == "animal_game":
             st.session_state.page = "main_menu"
             st.rerun()
 
-    # THE POP-UP LOGIC: Shows when an animal is clicked
+# THE POP-UP LOGIC: Shows when an animal is clicked
     else:
         gif_file, sound_url = st.session_state.current_video
-        st.title("LOOK!")
         
-        # Display the GIF (must be uploaded to GitHub)
-        st.image(gif_file, use_container_width=True)
-        # Play Sound
-        st.audio(sound_url, autoplay=True)
-        
-        # Wait 5 seconds, then go back to the animal menu
-        time.sleep(5)
-        st.session_state.current_video = None
-        st.rerun()
+        import os
+        import base64
+
+        if os.path.exists(gif_file):
+            st.title("LOOK! 📺")
+            
+            # --- NEW GIF LOGIC ---
+            # We read the GIF file and convert it to a format the browser understands
+            with open(gif_file, "rb") as f:
+                data = f.read()
+                base64_gif = base64.b64encode(data).decode()
+            
+            # This HTML "embeds" the GIF so it definitely stays moving
+            st.markdown(
+                f'<img src="data:image/gif;base64,{base64_gif}" width="100%" style="border-radius: 15px;">',
+                unsafe_allow_html=True
+            )
+            
+            # Play Sound
+            st.audio(sound_url, autoplay=True)
+            
+            # Wait 5 seconds, then go back
+            time.sleep(5)
+            st.session_state.current_video = None
+            st.rerun()
+        else:
+            st.error(f"Cannot find: {gif_file}")
+            if st.button("Go Back"):
+                st.session_state.current_video = None
+                st.rerun()
 
 # --- 5. SCREEN: BALLOON POP GAME ---
 elif st.session_state.page == "balloon_game":
