@@ -70,7 +70,7 @@ else:
         st.audio(sound_bytes, format="audio/mpeg", autoplay=True)
         
         # Wait 5 seconds so the toddler can enjoy the animation
-        time.sleep(5)
+        time.sleep(15)
         
         # Reset and go back to menu
         st.session_state.current_animal = None
