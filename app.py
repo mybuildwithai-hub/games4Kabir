@@ -87,7 +87,7 @@ else:
             st.rerun()
             
         # 6. The 15 Second Timer
-        time.sleep(15)
+        time.sleep(10)
         
         # Auto-reset after timer finishes
         st.session_state.current_animal = None
