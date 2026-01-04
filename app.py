@@ -46,18 +46,18 @@ else:
 
         # DUCK BUTTON
         if st.button("🦆 DUCK", use_container_width=True):
-            st.session_state.playing_video = "https://www.youtube.com/embed/u6_f6OshL90?autoplay=1&mute=1"
+            st.session_state.playing_video = "https://www.youtube.com/embed/raF08RDQrhI?autoplay=1&mute=1"
             st.rerun()
 
     with col2:
         # DOG BUTTON
         if st.button("🐶 DOG", use_container_width=True):
-            st.session_state.playing_video = "https://www.youtube.com/embed/j_S_9_193mY?autoplay=1&mute=1"
+            st.session_state.playing_video = "https://www.youtube.com/embed/Hy-cFpg2e30?autoplay=1&mute=1"
             st.rerun()
 
         # ELEPHANT BUTTON
         if st.button("🐘 ELEPHANT", use_container_width=True):
-            st.session_state.playing_video = "https://www.youtube.com/embed/Gn8S_C_uXmY?autoplay=1&mute=1"
+            st.session_state.playing_video = "https://www.youtube.com/embed/J8O9_ugpDjE?autoplay=1&mute=1"
             st.rerun()
 
     # --- 5. CATEGORY SECTION (For Future Growth) ---
