@@ -36,7 +36,7 @@ elif st.session_state.page == "animal_game":
     # If we aren't showing a GIF right now, show the menu
     if st.session_state.current_video is None:
         st.title("Tap an Animal! 🦁")
-        col1, col2 = st.columns(2)
+        col1, col2, col3, col4 = st.columns(4)
         
         with col1:
             if st.button("🦁 LION", use_container_width=True):
