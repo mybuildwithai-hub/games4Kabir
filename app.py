@@ -59,10 +59,44 @@ elif st.session_state.current_video:
         st.session_state.current_video = None
         st.rerun()
 
-# --- 6. SCREEN: COLOR GAME ---
-elif st.session_state.page == "color_game":
-    st.title("Color Game 🎨")
-    st.write("Coming Soon!")
-    if st.button("🏠 BACK", use_container_width=True):
+# --- 6. SCREEN: POP THE BALLOON ---
+elif st.session_state.page == "balloon_game":
+    st.title("Pop the Balloons! 🎈")
+    st.subheader("Tap a color to hear it!")
+
+    # Create 3 columns for big, colorful buttons
+    col1, col2, col3 = st.columns(3)
+
+    with col1:
+        if st.button("🔴 RED", use_container_width=True):
+            st.balloons()
+            # Voice over: "Red"
+            st.audio("https://ssl.gstatic.com/dictionary/static/sounds/oxford/red--_gb_1.mp3", autoplay=True)
+            st.success("That is RED!")
+
+    with col2:
+        if st.button("🔵 BLUE", use_container_width=True):
+            st.balloons()
+            # Voice over: "Blue"
+            st.audio("https://ssl.gstatic.com/dictionary/static/sounds/oxford/blue--_gb_1.mp3", autoplay=True)
+            st.info("That is BLUE!")
+
+    with col3:
+        if st.button("🟢 GREEN", use_container_width=True):
+            st.balloons()
+            # Voice over: "Green"
+            st.audio("https://ssl.gstatic.com/dictionary/static/sounds/oxford/green--_gb_1.mp3", autoplay=True)
+            st.warning("That is GREEN!")
+
+    st.write("---")
+    
+    # A special "Great Job" button
+    if st.button("🥳 TAP FOR A SURPRISE", use_container_width=True):
+        st.snow()
+        # Voice over: "Great Job" (Using a generic cheering sound)
+        st.audio("https://www.myinstants.com/media/sounds/kids_cheering.mp3", autoplay=True)
+        st.balloons()
+
+    if st.button("🏠 BACK TO MENU", use_container_width=True):
         st.session_state.page = "main_menu"
         st.rerun()
