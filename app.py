@@ -59,44 +59,43 @@ elif st.session_state.page == "animal_game":
             st.session_state.page = "main_menu"
             st.rerun()
 
-# THE POP-UP LOGIC: Shows when an animal is clicked
+# THE POP-UP LOGIC
     else:
-        gif_file, sound_url = st.session_state.current_video
+        gif_file, sound_file = st.session_state.current_video
         
         import os
         import base64
 
-        if os.path.exists(gif_file):
-            # --- CSS TO HIDE THE AUDIO PLAYER ---
-            st.markdown("""
-                <style>
-                audio {
-                    display: none;
-                }
-                </style>
-                """, unsafe_allow_html=True)
+        # Check if BOTH files exist
+        if os.path.exists(gif_file) and os.path.exists(sound_file):
+            # Hide the audio player bar
+            st.markdown("<style>audio {display: none;}</style>", unsafe_allow_html=True)
 
-           
-            # Read and encode the GIF
-            with open(gif_file, "rb") as f:
-                data = f.read()
-                base64_gif = base64.b64encode(data).decode()
+            st.title("LOOK! 📺")
             
-            # Display the GIF
+            # 1. Prepare the GIF
+            with open(gif_file, "rb") as f:
+                gif_data = f.read()
+                base64_gif = base64.b64encode(gif_data).decode()
+            
+            # 2. Prepare the Sound
+            with open(sound_file, "rb") as f:
+                sound_data = f.read()
+            
+            # 3. Display GIF
             st.markdown(
                 f'<img src="data:image/gif;base64,{base64_gif}" width="100%" style="border-radius: 15px;">',
                 unsafe_allow_html=True
             )
             
-            # Play Sound (it will be invisible now!)
-            st.audio(sound_url, autoplay=True)
+            # 4. Play Local Sound
+            st.audio(sound_data, format="audio/mp3", autoplay=True)
             
-            # Wait 5 seconds, then go back
             time.sleep(5)
             st.session_state.current_video = None
             st.rerun()
         else:
-            st.error(f"Cannot find: {gif_file}")
+            st.error(f"Missing files! Check GitHub for: {gif_file} or {sound_file}")
             if st.button("Go Back"):
                 st.session_state.current_video = None
                 st.rerun()
