@@ -67,7 +67,7 @@ else:
         )
         
         # Play the Sound
-        st.audio(sound_bytes, format="audio/mp3", autoplay=True)
+        st.audio(sound_bytes, format="audio/mpeg", autoplay=True)
         
         # Wait 5 seconds so the toddler can enjoy the animation
         time.sleep(5)
