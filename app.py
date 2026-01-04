@@ -29,7 +29,7 @@ elif st.session_state.page == "animal_game" and st.session_state.current_video i
     col1, col2 = st.columns(2)
     with col1:
         if st.button("🦁 LION", use_container_width=True):
-            st.session_state.current_video = "lion.mp4"
+            st.session_state.current_video = "Lion.mp4"
             st.rerun()
         if st.button("🐶 DOG", use_container_width=True):
             st.session_state.current_video = "https://www.youtube.com/embed/Hy-cFpg2e30?autoplay=1&mute=1"
