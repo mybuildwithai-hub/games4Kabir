@@ -4,97 +4,118 @@ import random
 import os
 import base64
 
-# --- 1. SETTINGS ---
+# --- 1. SETTINGS & STYLING ---
 st.set_page_config(page_title="Kabir Play Box", page_icon="🎮", layout="wide")
 
-# CSS to hide the standard audio player and style the "Finish" button
 st.markdown("""
     <style>
     audio { display: none; }
-    .stButton>button { border-radius: 20px; height: 3em; font-weight: bold; }
+    .stButton>button { border-radius: 20px; height: 4em; font-weight: bold; font-size: 22px; background-color: #f0f2f6; }
+    .stButton>button:active { background-color: #FFD700; }
     </style>
     """, unsafe_allow_html=True)
 
 # --- 2. THE APP BRAIN ---
-if 'current_animal' not in st.session_state:
-    st.session_state.current_animal = None
+if 'page' not in st.session_state:
+    st.session_state.page = "main_menu"
+if 'current_item' not in st.session_state:
+    st.session_state.current_item = None
 
-# --- 3. MAIN SCREEN: ANIMAL SELECTION ---
-if st.session_state.current_animal is None:
-    st.title("Tap an Animal! 🦁")
-    
-    col1, col2, col3, col4 = st.columns(4)
-    
-    animals = [
-        ("🦁 LION", "animations/lion.gif", "sounds/lion.mp3", col1),
-        ("🐶 DOG", "animations/dog.gif", "sounds/dog.mp3", col1),
-        ("🦆 DUCK", "animations/duck.gif", "sounds/duck.mp3", col2),
-        ("🐘 ELEPHANT", "animations/elephant.gif", "sounds/elephant.mp3", col2),
-        ("🐱 CAT", "animations/cat.gif", "sounds/cat.mp3", col3),
-        ("🐮 COW", "animations/cow.gif", "sounds/cow.mp3", col3),
-        ("🐒 MONKEY", "animations/monkey.gif", "sounds/monkey.mp3", col4),
-        ("🐑 SHEEP", "animations/sheep.gif", "sounds/sheep.mp3", col4)
-    ]
-
-    for label, gif, sound, col in animals:
-        with col:
-            if st.button(label, use_container_width=True):
-                st.session_state.current_animal = [gif, sound]
-                st.rerun()
-
-# --- 4. POP-UP SCREEN: GIF + LOOPING SOUND ---
-else:
-    gif_path, sound_path = st.session_state.current_animal
-    
-    if os.path.exists(gif_path) and os.path.exists(sound_path):
-        # 1. Prepare GIF
-        with open(gif_path, "rb") as f:
-            gif_bytes = f.read()
-            base64_gif = base64.b64encode(gif_bytes).decode()
+# --- 3. HELPER FUNCTION: THE POP-UP ---
+# This function handles the 15-second show for BOTH games
+def show_surprise(file_path, sound_path):
+    if os.path.exists(file_path) and os.path.exists(sound_path):
+        # Prepare Image/GIF
+        with open(file_path, "rb") as f:
+            base64_img = base64.b64encode(f.read()).decode()
         
-        # 2. Prepare Sound
+        # Prepare Sound
         with open(sound_path, "rb") as f:
-            sound_bytes = f.read()
-            base64_sound = base64.b64encode(sound_bytes).decode()
+            base64_sound = base64.b64encode(f.read()).decode()
 
-        # 3. Show GIF
-        st.markdown(
-            f'''
-            <div style="display: flex; justify-content: center;">
-                <img src="data:image/gif;base64,{base64_gif}" 
-                     style="width: 85%; max-height: 500px; object-fit: contain; border-radius: 20px; border: 8px solid #FFD700;">
+        # Display Content
+        st.markdown(f'''
+            <div style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
+                <img src="data:image/{"gif" if file_path.endswith("gif") else "jpeg"};base64,{base64_img}" 
+                     style="width: 80%; max-height: 500px; object-fit: contain; border-radius: 30px; border: 10px solid #FFD700;">
+                <audio autoplay loop><source src="data:audio/mp3;base64,{base64_sound}" type="audio/mp3"></audio>
             </div>
-            ''',
-            unsafe_allow_html=True
-        )
-        
-        # 4. Loop Sound using HTML (Better for iPad/iPhone)
-        st.markdown(
-            f'''
-            <audio autoplay loop>
-                <source src="data:audio/mp3;base64,{base64_sound}" type="audio/mp3">
-            </audio>
-            ''',
-            unsafe_allow_html=True
-        )
+            ''', unsafe_allow_html=True)
 
-        st.write("") # Spacer
-        
-        # 5. The Skip/Finish Button
-        # This allows you to go back before the 15 seconds are up
-        if st.button("⬅️ DONE / NEXT ANIMAL", use_container_width=True):
-            st.session_state.current_animal = None
+        st.write("") 
+        if st.button("⬅️ DONE / NEXT", use_container_width=True):
+            st.session_state.current_item = None
             st.rerun()
             
-        # 6. The 15 Second Timer
-        time.sleep(10)
-        
-        # Auto-reset after timer finishes
-        st.session_state.current_animal = None
+        time.sleep(15)
+        st.session_state.current_item = None
         st.rerun()
-
     else:
-        st.error(f"Missing File! Check: {gif_path} or {sound_path}")
-        if st.button("⬅️ Back to Menu"):
-            st.session_state.current_animal = None
+        st.error(f"Missing File! Check: {file_path}")
+        if st.button("Back"):
+            st.session_state.current_item = None
             st.rerun()
+
+# --- 4. MASTER MENU ---
+if st.session_state.page == "main_menu":
+    st.title("Hi Kabir! Pick a Game 🌟")
+    
+    col_a, col_b = st.columns(2)
+    with col_a:
+        if st.button("🦁 ANIMAL FRIENDS", use_container_width=True):
+            st.session_state.page = "animal_game"
+            st.rerun()
+    with col_b:
+        if st.button("✈️ TOY BOX SURPRISE", use_container_width=True):
+            st.session_state.page = "toy_game"
+            st.rerun()
+
+# --- 5. GAME 1: ANIMAL FRIENDS ---
+elif st.session_state.page == "animal_game":
+    if st.session_state.current_item is None:
+        st.title("Tap an Animal! 🦁")
+        col1, col2, col3, col4 = st.columns(4)
+        animals = [
+            ("🦁 LION", "animations/lion.gif", "sounds/lion.mp3", col1),
+            ("🐶 DOG", "animations/dog.gif", "sounds/dog.mp3", col1),
+            ("🦆 DUCK", "animations/duck.gif", "sounds/duck.mp3", col2),
+            ("🐘 ELEPHANT", "animations/elephant.gif", "sounds/elephant.mp3", col2),
+            ("🐱 CAT", "animations/cat.gif", "sounds/cat.mp3", col3),
+            ("🐮 COW", "animations/cow.gif", "sounds/cow.mp3", col3),
+            ("🐒 MONKEY", "animations/monkey.gif", "sounds/monkey.mp3", col4),
+            ("🐑 SHEEP", "animations/sheep.gif", "sounds/sheep.mp3", col4)
+        ]
+        for label, path, sound, col in animals:
+            with col:
+                if st.button(label, use_container_width=True):
+                    st.session_state.current_item = [path, sound]
+                    st.rerun()
+        if st.button("🏠 MAIN MENU", use_container_width=True):
+            st.session_state.page = "main_menu"
+            st.rerun()
+    else:
+        show_surprise(st.session_state.current_item[0], st.session_state.current_item[1])
+
+# --- 6. GAME 2: TOY BOX SURPRISE ---
+elif st.session_state.page == "toy_game":
+    if st.session_state.current_item is None:
+        st.title("What's in the Box? 🎁")
+        t_col1, t_col2 = st.columns(2)
+        
+        toys = [
+            ("✈️ PLANE", "toys/plane.jpg", "sounds/plane.mp3", t_col1),
+            ("🚗 CAR", "toys/car.jpg", "sounds/car.mp3", t_col1),
+            ("🚂 TRAIN", "toys/train.jpg", "sounds/train.mp3", t_col2),
+            ("⚽ BALL", "toys/ball.jpg", "sounds/bounce.mp3", t_col2)
+        ]
+        
+        for label, path, sound, col in toys:
+            with col:
+                if st.button(label, use_container_width=True):
+                    st.session_state.current_item = [path, sound]
+                    st.rerun()
+        if st.button("🏠 MAIN MENU", use_container_width=True):
+            st.session_state.page = "main_menu"
+            st.rerun()
+    else:
+        show_surprise(st.session_state.current_item[0], st.session_state.current_item[1])
